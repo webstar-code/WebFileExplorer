@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { root } from '../../apis'
+import ReactContext from '../../context';
 
 
 export const Input = styled.input`
@@ -11,7 +12,8 @@ export const Input = styled.input`
     margin-right: 10px;
 `;
 
-export const Search = (props) => {
+export const Search = () => {
+    const context = useContext(ReactContext);
     let items = [];
 
     function SearchNode(root, value) {
@@ -30,12 +32,12 @@ export const Search = (props) => {
 
     const handleOnChange = (value) => {
         // find nodes with value
-        if (value == "") {
+        if (value === "") {
             items = [root];
         } else {
             SearchNode(root, value);
         }
-        props.setFolders(items);
+        context.setFolders(items);
     }
     return (
         <Input type="text" placeholder="Search" width='25%' onChange={(e) => handleOnChange(e.target.value)}></Input>
