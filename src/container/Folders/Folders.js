@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Folder } from '../../components';
-import { root } from '../../apis'
+import ReactContext from '../../context';
 import { Container } from './FoldersStyles';
 
 
-export const Folders = (props) => {
-    let folders = props.folders;
+export const Folders = () => {
+    const context = useContext(ReactContext);
+
     return (
         <Container>
-            {folders ? 
-            folders.map((elm) => {
-                return <Folder root={elm} key={elm.id} />
+            {context.folders ? 
+            context.folders.map((elm) => {
+                return <Folder folder={elm} key={elm.id} />
             }) :
             <h1>No match found</h1>}
         </Container>

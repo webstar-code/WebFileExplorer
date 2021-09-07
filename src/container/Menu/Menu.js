@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Container, Input, Icon, IconContainer} from './MenuStyles';
-import {Add_File} from '../../assests/index'
+import {Add_File, Add_Folder, Trash} from '../../assests'
 import { Modal, Search } from '../../components';
 import ReactContext from '../../context';
 import {root} from '../../apis';
 
-export const Menu = (props) => {
+export const Menu = () => {
     const context = useContext(ReactContext);
     const [currentPath, setcurrentPath] = useState('');
     const [modalstate, setModalState] = useState({
@@ -30,15 +30,14 @@ export const Menu = (props) => {
 
     return(
         <Container>
-            <Modal state={modalstate} setState={setModalState} />
+            <Modal modal={modalstate} setModalState={setModalState} />
             <Input type="text" placeholder="/root" width='50%' disabled={true} value={currentPath} ></Input>
-            <Search setFolders={props.setFolders} />
+            <Search />
             <IconContainer>
-                <Icon src={Add_File} onClick={() => setModalState({show: true, title: 'New File'})}></Icon>
+                <Icon src={Add_File} onClick={() => setModalState({show: true, title: 'File'})}></Icon>
+                <Icon src={Add_Folder} onClick={() => setModalState({show: true, title: 'Folder'})}></Icon>
+                <Icon src={Trash}></Icon>
                 <Icon src={Add_File}></Icon>
-                <Icon src={Add_File}></Icon>
-                <Icon src={Add_File}></Icon>
-
             </IconContainer>
         </Container>
     )

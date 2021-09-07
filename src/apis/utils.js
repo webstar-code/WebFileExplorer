@@ -1,12 +1,4 @@
 import  data from '../data.json';
-function Node({...l_data}) {
-    this.name = l_data.name;
-    this.id = l_data.id;
-    this.children = l_data.children;
-
-    this.firstChild = null;
-    this.nextSibling = null;
-}
 
 export function queue() {
     this.arr = [];
@@ -75,26 +67,26 @@ export function SearchNode(root, value) {
 }
 
 
-function Insert(root, data) {
+// export function Insert(root, data) {
 
-    if (root === null) return;
+//     if (root === null) return;
 
-    let parentNode = root;
-    if (parentNode) {
-        if (!parentNode.firstChild) {
-            parentNode.firstChild = new Node(data);
-        }else{
-            let temp = parentNode.firstChild;
-            while(temp.nextSibling) {
-                temp = temp.nextSibling;
-            }
+//     let parentNode = root;
+//     if (parentNode) {
+//         if (!parentNode.firstChild) {
+//             parentNode.firstChild = new Node(data);
+//         }else{
+//             let temp = parentNode.firstChild;
+//             while(temp.nextSibling) {
+//                 temp = temp.nextSibling;
+//             }
 
-            temp.nextSibling = new Node(data);
-        }
-    }else{
-        console.log("No element found");
-    }
-}
+//             temp.nextSibling = new Node(data);
+//         }
+//     }else{
+//         console.log("No element found");
+//     }
+// }
 
 
 export function find_from_data(id) {
@@ -110,8 +102,9 @@ export function Construct(root) {
     if (root === null) return;
 
     if (root.children) {
+        console.log(root);
         for(let i = 0; i < root.children.length; i++) {
-            Insert(root, find_from_data(root.children[i].id));
+            root.insert(find_from_data(root.children[i].id));
         }
     }
     Construct(root.firstChild);

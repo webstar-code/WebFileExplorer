@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Down_Arrow, Right_Arrow } from '../../assests/index'
+import { root } from '../../apis';
+import { Down_Arrow, Opened_Folder, Right_Arrow, Folder as FolderSvg, File } from '../../assests/index'
 import ReactContext from '../../context';
 import { Container, Icon, Text, Child, Pane } from './FolderStyles';
 
 
-function PrintTree(root) {
+function GetChildren(root) {
     if (root === null) return;
     let items = [];
     let temp = root.firstChild;
@@ -15,39 +16,41 @@ function PrintTree(root) {
     return items;
 }
 
-export const Folder = (props) => {
+export const Folder = ({ folder }) => {
     const context = useContext(ReactContext);
     const [open, setOpen] = useState(false);
-    let root = props.root;
-
-    let children = PrintTree(root);
+    let children = GetChildren(folder);
 
     const handleOnClick = () => {
         setOpen(!open);
-        console.log(open);
+    }
+    const changeSelected = () => {
+        context.setSelected(folder);
     }
 
-    const changeSelected = () => {
-        context.setSelected(root);
-        console.log(context.selected);
-    }
     return (
         <Container>
-            <Pane onClick={() => handleOnClick()} bgcolor={context.selected.name == root.name ? '#03a9f44f' : 'none'}>
-                {open ?
-                    <Icon src={Down_Arrow} />
+            <Pane onClick={() => handleOnClick()} bgcolor={context.selected.name === folder.name ? '#03a9f44f' : 'none'}>
+                {folder.type == "File" ?
+                    <Icon src={File} />
                     :
-                    <Icon src={Right_Arrow} />
+                    <>
+                        {open ?
+                            <Icon src={Opened_Folder} onClick={() => handleOnClick()} />
+                            :
+                            <Icon src={FolderSvg} onClick={() => handleOnClick()} />
+                        }
+                    </>
                 }
-                <Text onClick={() => changeSelected()}>{root.name}</Text>
+                <Text onClick={() => changeSelected()} onDoubleClick={() => handleOnClick()}>{folder.name}</Text>
             </Pane>
-            {open ? 
-            <Child>
-                {children.map((el) => {
-                    return <Folder root={el} />
-                })}
-            </Child>
-            : null }
+            {open ?
+                <Child>
+                    {children.map((el) => {
+                        return <Folder folder={el} key={el.name} />
+                    })}
+                </Child>
+                : null}
 
         </Container>
     )

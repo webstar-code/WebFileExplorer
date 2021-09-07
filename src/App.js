@@ -10,9 +10,9 @@ function App() {
   return (
     <Container>
       <Header />
-      <ReactContext.Provider value={{selected, setSelected}}>
-        <Menu setFolders={setFolders} />
-        <Folders folders={folders} />
+      <ReactContext.Provider value={{folders, setFolders, selected, setSelected}}>
+        <Menu />
+        <Folders />
       </ReactContext.Provider>
     </Container>
   );
