@@ -30,13 +30,13 @@ export const Menu = () => {
 
     return(
         <Container>
-            <Modal modal={modalstate} setModalState={setModalState} />
+            <Modal modalState={modalstate} setModalState={setModalState} />
             <Input type="text" placeholder="/root" width='50%' disabled={true} value={currentPath} ></Input>
             <Search />
             <IconContainer>
-                <Icon src={Add_File} onClick={() => setModalState({show: true, title: 'File'})}></Icon>
-                <Icon src={Add_Folder} onClick={() => setModalState({show: true, title: 'Folder'})}></Icon>
-                <Icon src={Trash}></Icon>
+                <Icon src={Add_File} onClick={() => context.selected.type != 'file' ? setModalState({show: true, type: "file"}) : null} ></Icon>
+                <Icon src={Add_Folder} onClick={() => context.selected.type != 'file' ? setModalState({show: true, type: "folder"}) : null} ></Icon>
+                <Icon src={Trash} onClick={() => setModalState({show: true, type: "delete"})}></Icon>
                 <Icon src={Add_File}></Icon>
             </IconContainer>
         </Container>

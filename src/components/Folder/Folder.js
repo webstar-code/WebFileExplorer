@@ -30,28 +30,31 @@ export const Folder = ({ folder }) => {
 
     return (
         <Container>
-            <Pane onClick={() => handleOnClick()} bgcolor={context.selected.name === folder.name ? '#03a9f44f' : 'none'}>
-                {folder.type == "File" ?
+
+            {folder.type == 'file' ?
+                <Pane bgcolor={context.selected.name === folder.name ? '#03a9f44f' : 'none'}>
                     <Icon src={File} />
-                    :
-                    <>
+                    <Text onClick={() => changeSelected()} onDoubleClick={() => handleOnClick()}>{folder.name}</Text>
+                </Pane>
+                :
+                <>
+                    <Pane onClick={() => handleOnClick()} bgcolor={context.selected.name === folder.name ? '#03a9f44f' : 'none'}>
                         {open ?
                             <Icon src={Opened_Folder} onClick={() => handleOnClick()} />
                             :
                             <Icon src={FolderSvg} onClick={() => handleOnClick()} />
                         }
-                    </>
-                }
-                <Text onClick={() => changeSelected()} onDoubleClick={() => handleOnClick()}>{folder.name}</Text>
-            </Pane>
-            {open ?
-                <Child>
-                    {children.map((el) => {
-                        return <Folder folder={el} key={el.name} />
-                    })}
-                </Child>
-                : null}
-
+                        <Text onClick={() => changeSelected()} onDoubleClick={() => handleOnClick()}>{folder.name}</Text>
+                    </Pane>
+                    {open ?
+                        <Child>
+                            {children.map((el) => {
+                                return <Folder folder={el} key={el.name} />
+                            })}
+                        </Child>
+                        : null}
+                </>
+            }
         </Container>
     )
 }
