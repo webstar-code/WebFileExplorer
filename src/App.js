@@ -3,6 +3,7 @@ import { Header, Menu, Folders } from './container'
 import styled from 'styled-components';
 import { root } from './apis'
 import ReactContext from './context';
+import ContextMenu from './components/ContextMenu.js/ContextMenu';
 
 function App() {
   const [folders, setFolders] = useState([root]);
@@ -13,6 +14,7 @@ function App() {
       <ReactContext.Provider value={{folders, setFolders, selected, setSelected}}>
         <Menu />
         <Folders />
+        <ContextMenu />
       </ReactContext.Provider>
     </Container>
   );
