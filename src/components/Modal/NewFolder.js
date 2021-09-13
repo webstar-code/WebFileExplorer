@@ -1,14 +1,15 @@
-import React, { useContext, useState } from 'react';
-import { root } from '../../apis';
+import React, { useContext } from 'react';
 import ReactContext from '../../context';
-import {Close as CloseSvg} from '../../assests';
+import { root } from '../../apis';
+import { Close as CloseSvg } from '../../assests';
 
+import { useForm } from 'react-hook-form';
 import { Body, Button, Content, Footer, Header, Input, Label, Pane, Select, Title, Close, Option } from './ModalStyles';
-
+import { Error } from './NewFile';
 
 const NewFolder = ({ modalState, setModalState }) => {
     const context = useContext(ReactContext);
-    const [newNodeData, setnewNodeData] = useState({ name: '', extension: '', type: modalState.type });
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     // Check if File name already exists
     function check_if_exists(root, value) {
@@ -22,40 +23,41 @@ const NewFolder = ({ modalState, setModalState }) => {
         return false;
     }
 
-
-    function addNewNode() {
+    function handleOnClick(data) {
+        let newNodeData = { name: data.folderName, type: modalState.type }
         context.selected.insert(newNodeData);
-        // to re-render all the folders
         context.setFolders([root]);
-    }
-
-    function handleOnClick() {
-        if (check_if_exists(context.selected, newNodeData.name)) {
-            alert("Folder name already exists.");
-            return;
-        }
-        addNewNode();
         setModalState({ ...modalState, show: false });
     }
 
-
     return (
         <Content>
-            <Header>
-                <Title>New Folder</Title>
-                <Close src={CloseSvg} onClick={() => setModalState({...modalState,show: false, })} />
-            </Header>
-            <Body>
-                <Pane>
-                    <Label>Folder Name: </Label>
-                    <Input onChange={(el) => setnewNodeData({ ...newNodeData, name: el.target.value })}></Input>
-                </Pane>
-            </Body>
-            <Footer>
-                <Button onClick={() => handleOnClick()}>Create</Button>
-            </Footer>
+            <form onSubmit={handleSubmit(handleOnClick)}>
+                <Header>
+                    <Title>New Folder</Title>
+                    <Close src={CloseSvg} onClick={() => setModalState({ ...modalState, show: false, })} />
+                </Header>
+                <Body>
+                    <Pane>
+                        <Label htmlFor="folderName">Folder Name: </Label>
+                        <Input
+                            {...register("folderName",
+                                {
+                                    required: true,
+                                    pattern: /^[0-9a-zA-Z ... ]+$/,
+                                    validate: (value) => !check_if_exists(context.selected, value)
+                                })}
+                        />
+                    </Pane>
+                    {errors.folderName?.type === 'required' && <Error text={"Folder name is required."} />}
+                    {errors.folderName?.type === 'pattern' && <Error text={"Not valid. Please choose a different name."} />}
+                    {errors.folderName?.type === 'validate' && <Error text={"Folder Name already exists."} />}
+                </Body>
+                <Footer>
+                    <Button type="submit">Create</Button>
+                </Footer>
+            </form>
         </Content>
-
     )
 }
 

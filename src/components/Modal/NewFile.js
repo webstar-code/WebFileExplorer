@@ -1,18 +1,17 @@
-import React, { useContext, useState } from 'react';
-import { root } from '../../apis';
+import React, { useContext } from 'react';
 import ReactContext from '../../context';
-import {Close as CloseSvg} from '../../assests';
-
-import { Body, Button, Content, Footer, Header, Input, Label, Pane, Select, Title, Close, Option } from './ModalStyles';
-
+import { root } from '../../apis';
+import { Close as CloseSvg } from '../../assests';
+import { Body, Button, Content, Footer, Header, Input, Label, Pane, Select, Title, Close, Option, ErrorText } from './ModalStyles';
+import { useForm } from 'react-hook-form';
 
 const NewFile = ({ modalState, setModalState }) => {
     const context = useContext(ReactContext);
-    const [newNodeData, setnewNodeData] = useState({ name: '', extension: '', type: modalState.type });
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     // Check if File name already exists
     function check_if_exists(root, value) {
-        if (root.name == value) return true;
+        if (root.name === value) return true;
         if (root.nextSibling) {
             return check_if_exists(root.nextSibling, value);
         }
@@ -22,49 +21,59 @@ const NewFile = ({ modalState, setModalState }) => {
         return false;
     }
 
-
-    function addNewNode() {
-        context.selected.insert(newNodeData);
-        // to re-render all the folders
+    function addNewNode(data) {
+        context.selected.insert(data);
         context.setFolders([root]);
     }
 
-    function handleOnClick() {
-        if (check_if_exists(context.selected, newNodeData.name)) {
-            alert("File name already exists.");
-            return;
-        }
-        addNewNode();
+    function handleOnClick(data) {
+        let newNodeData = { name: data.fileName, extension: data.fileExtension, type: modalState.type }
+        addNewNode(newNodeData);
         setModalState({ ...modalState, show: false });
     }
-
-
     return (
         <Content>
-            <Header>
-                <Title>New File</Title>
-                <Close src={CloseSvg} onClick={() => setModalState({...modalState, show: false})} />
-            </Header>
-            <Body>
-                <Pane>
-                    <Label>File Name: </Label>
-                    <Input onChange={(el) => setnewNodeData({ ...newNodeData, name: el.target.value })} required={true}></Input>
-                </Pane>
-                <Pane>
-                    <Label>Save as</Label>
-                    <Select name="Extension" id="extension" onChange={(el => setnewNodeData({...newNodeData, extension: el.target.value }))} required={true}>
-                        <Option value=".txt">Plain text</Option>
-                        <Option value=".cpp">cpp</Option>
-                        <Option value=".html">HTML file</Option>
-                        <Option value=".js">javascript</Option>
-                    </Select>
-                </Pane>
-            </Body>
-            <Footer>
-                <Button onClick={() => handleOnClick()}>Create</Button>
-            </Footer>
+            <form onSubmit={handleSubmit(handleOnClick)}>
+                <Header>
+                    <Title>New File</Title>
+                    <Close src={CloseSvg} onClick={() => setModalState({ ...modalState, show: false })} />
+                </Header>
+                <Body>
+                    <Pane>
+                        <Label htmlFor="fileName">File Name: </Label>
+                        <Input
+                            {...register("fileName",
+                                {
+                                    required: true,
+                                    pattern: /^[0-9a-zA-Z ... ]+$/,
+                                    validate: (value) => !check_if_exists(context.selected, value)
+                                })} />
+                    </Pane>
+                    {errors.fileName?.type === 'required' && <Error text={"File name is required."} />}
+                    {errors.fileName?.type === 'pattern' && <Error text={"Not valid. Please choose a different name."} />}
+                    {errors.fileName?.type === 'validate' && <Error text={"File Name already exists."} />}
+            
+                    <Pane>
+                        <Label>Save as</Label>
+                        <Select name="Extension" id="extension" {...register("fileExtension")}>
+                            <Option value="txt">Plain text</Option>
+                            <Option value="cpp">cpp</Option>
+                            <Option value="html">HTML file</Option>
+                            <Option value="js">javascript</Option>
+                        </Select>
+                    </Pane>
+                </Body>
+                <Footer>
+                    <Button type="submit">Create</Button>
+                </Footer>
+            </form>
         </Content>
+    )
+}
 
+export const Error = (props) => {
+    return (
+        <ErrorText>{props.text}</ErrorText>
     )
 }
 

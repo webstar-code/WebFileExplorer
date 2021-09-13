@@ -66,7 +66,7 @@ export const Pane = styled.div`
     margin: 20px 0px;
 `;
 
-export const Label = styled.p`
+export const Label = styled.label`
 
 `;
 
@@ -86,4 +86,12 @@ export const Select = styled.select`
 
 export const Option = styled.option`
 padding: 5px;
+`;
+
+export const ErrorText = styled.p`
+    color: #bf1650;
+    &::before{
+        display: inline;
+        content: "⚠ ";
+    }
 `;
