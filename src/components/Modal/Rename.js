@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Body, Button, Content, Footer, Header, Input, Label, Pane, Close, Title } from './ModalStyles';
 import { useForm } from 'react-hook-form';
 import { Close as CloseSvg } from '../../assests';
-import { check_if_exists, renameFile } from './utils';
+import { check_if_exists } from '../../utils.js';
+import ReactContext from '../../context';
+import { root } from '../../apis';
+import { Error } from './NewFile';
 
 const Rename = ({ modalState, setModalState }) => {
+    const context = useContext(ReactContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const handleSubmit = (data) => {
-        // TOdo
+    const onSubmit = (data) => {
+        context.selected.rename(data.fileName);
+        context.setFolders([root]);
+        setModalState({ ...modalState, show: false });
     }
 
 
     return (
         <Content>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Header>
                     <Title>Rename file</Title>
                     <Close src={CloseSvg} onClick={() => setModalState({ ...modalState, show: false })} />

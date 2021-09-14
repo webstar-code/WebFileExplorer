@@ -4,7 +4,7 @@ import { root } from '../../apis';
 import { Close as CloseSvg } from '../../assests';
 import { Body, Button, Content, Footer, Header, Input, Label, Pane, Select, Title, Close, Option, ErrorText } from './ModalStyles';
 import { useForm } from 'react-hook-form';
-import { check_if_exists } from './utils';
+import { check_if_exists } from '../../utils.js';
 
 
 const NewFile = ({ modalState, setModalState }) => {
@@ -18,7 +18,6 @@ const NewFile = ({ modalState, setModalState }) => {
 
     function handleOnClick(data) {
         let newNodeData = { name: data.fileName, extension: data.fileExtension, type: modalState.type }
-        console.log(!check_if_exists(context.selected, data.fileName))
         addNewNode(newNodeData);
         setModalState({ ...modalState, show: false });
     }

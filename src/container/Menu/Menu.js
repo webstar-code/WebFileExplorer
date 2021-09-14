@@ -4,6 +4,7 @@ import {Add_File, Add_Folder, Trash} from '../../assests'
 import { Modal, Search } from '../../components';
 import ReactContext from '../../context';
 import {root} from '../../apis';
+import ContextMenu from '../../components/ContextMenu.js/ContextMenu';
 
 export const Menu = () => {
     const context = useContext(ReactContext);
@@ -30,6 +31,7 @@ export const Menu = () => {
 
     return(
         <Container>
+            <ContextMenu setModalState={setModalState} />
             <Modal modalState={modalstate} setModalState={setModalState} />
             <Input type="text" placeholder="/root" width='50%' disabled={true} value={currentPath} ></Input>
             <Search />

@@ -14,7 +14,6 @@ function App() {
       <ReactContext.Provider value={{folders, setFolders, selected, setSelected}}>
         <Menu />
         <Folders />
-        <ContextMenu />
       </ReactContext.Provider>
     </Container>
   );

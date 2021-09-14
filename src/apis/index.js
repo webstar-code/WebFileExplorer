@@ -30,6 +30,9 @@ export class Node {
         // update the DB
     }
 
+    rename(newName) {
+        this.name = newName;
+    }
 
     delete = function() {
 

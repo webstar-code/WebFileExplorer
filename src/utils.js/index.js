@@ -1,4 +1,4 @@
-import { root } from "../../apis";
+import { root } from "../apis";
 
 function searchNode(value, node = root) {
         if(node.name === value) return node;
@@ -12,9 +12,6 @@ function searchNode(value, node = root) {
         return null;
 }
 
-
-
-// Check if File name already exists
 export function check_if_exists(root, value) {
     if (root.name == value) return true;
     if (root.nextSibling) {
@@ -26,8 +23,26 @@ export function check_if_exists(root, value) {
     return false;
 }
 
-export function renameFile(oldName, newName) {
-    let node = searchNode(oldName);
-    node.name = newName;
-    return node;
+
+export  function deleteNode(root, node) {
+    if (root == null) return;
+    
+    if (root.nextSibling === node) {
+        root.nextSibling = root.nextSibling.nextSibling;
+        return root;
+    }
+
+    if (root.firstChild === node) {
+        root.firstChild = root.firstChild.nextSibling;
+        return root;
+    }
+    let x = deleteNode(root.firstChild, node);
+    if(x) return;
+    return deleteNode(root.nextSibling, node);
+}
+
+export function Cut(node) {
+    let temp = node;
+    deleteNode(root, temp);
+    return temp;
 }
