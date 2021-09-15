@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Container, Input, Icon, IconContainer} from './MenuStyles';
-import {Add_File, Add_Folder, Trash} from '../../assests'
-import { Modal, Search } from '../../components';
+import {Add_File, Add_Folder, Trash, Edit_File} from '../../assests'
+import { Modal, Search } from '../index';
 import ReactContext from '../../context';
 import {root} from '../../apis';
-import ContextMenu from '../../components/ContextMenu.js/ContextMenu';
+import ContextMenu from '../ContextMenu/ContextMenu';
 
 export const Menu = () => {
     const context = useContext(ReactContext);
@@ -21,7 +21,7 @@ export const Menu = () => {
         items.reverse();
         let temp = '';
         for(let i = 0; i < items.length; i++) {
-            // when i do temp += items[i].name + '/' weired stuff happend. The items[i].name is appedend with '/'
+            // when i do temp += items[i].name + '/' weired stuff happens. The items[i].name is appedend with '/'
             temp += items[i].name;
             temp+= '/';
         }
@@ -39,7 +39,7 @@ export const Menu = () => {
                 <Icon src={Add_File} onClick={() => context.selected.type != 'file' ? setModalState({show: true, type: "file"}) : null} ></Icon>
                 <Icon src={Add_Folder} onClick={() => context.selected.type != 'file' ? setModalState({show: true, type: "folder"}) : null} ></Icon>
                 <Icon src={Trash} onClick={() => setModalState({show: true, type: "delete"})}></Icon>
-                <Icon src={Add_File}></Icon>
+                <Icon src={Edit_File}></Icon>
             </IconContainer>
         </Container>
     )

@@ -13,6 +13,9 @@ export const Icon = styled.img`
 export const Text = styled.h3`
     margin-left: 5px;
     cursor: default;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 16px;
 `;
 
 export const Child = styled.div`
@@ -24,4 +27,5 @@ export const Pane = styled.div`
     display: flex;
     align-items: center;
     background-color: ${props => props.bgcolor};
+    padding: 5px 2px;
     `;

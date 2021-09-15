@@ -1,15 +1,30 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { root } from '../../apis'
+import { device } from '../../Breakpoints';
 import ReactContext from '../../context';
 
 
 export const Input = styled.input`
+    grid-area: search;
     margin: 10px 0px;
     padding: 10px;
-    border-radius: 2px;
     width: ${props => props.width};
     margin-right: 10px;
+    background: #C4C4C4;
+    border-radius: 2px;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+    
+    @media ${device.tablet} {
+        width: 100%;
+    }
 `;
 
 export const Search = () => {
