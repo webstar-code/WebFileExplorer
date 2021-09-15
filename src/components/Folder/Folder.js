@@ -26,19 +26,20 @@ export const Folder = ({ folder }) => {
         setOpen(!open);
     }
     const changeSelected = () => {
+
         context.setSelected(folder);
     }
 
     return (
         <Container>
             {folder.type == 'file' ?
-                <Pane onClick={() => changeSelected()}bgcolor={context.selected.name === folder.name ? 'rgba(36, 114, 145, 0.4)' : 'none'}>
+                <Pane onClick={() => changeSelected()}bgcolor={context.selected.id === folder.id ? 'rgba(36, 114, 145, 0.4)' : 'none'}>
                     <Icon src={File}  />
                     <Text>{folder.name}</Text>
                 </Pane>
                 :
                 <>
-                    <Pane onDoubleClick={() => handleOnClick()} bgcolor={context.selected.name === folder.name ? 'rgba(36, 114, 145, 0.4)' : 'none'}>
+                    <Pane onDoubleClick={() => handleOnClick()} bgcolor={context.selected.id === folder.id ? 'rgba(36, 114, 145, 0.4)' : 'none'}>
                         {open ?
                             <Icon src={Opened_Folder} onClick={() => handleOnClick()} />
                             :
@@ -49,7 +50,7 @@ export const Folder = ({ folder }) => {
                     {open ?
                         <Child>
                             {children.map((el) => {
-                                return <Folder folder={el} key={el.id + el.name} />
+                                return <Folder folder={el} key={el.id} />
                             })}
                         </Child>
                         : null}
