@@ -3,30 +3,14 @@ import ReactContext from '../../context';
 import { Body, Content, Header, Button, Label, Title, Footer, Close } from './ModalStyles';
 import { Close as CloseSvg } from '../../assests';
 import { root } from '../../apis';
-
+import { deleteNode } from '../../utils.js'
 const Delete = ({ modalState, setModalState }) => {
     const context = useContext(ReactContext);
-
-    function deleteNode(node) {
-        if (node == null) return;
-
-        if (node.nextSibling === context.selected) {
-            node.nextSibling = node.nextSibling.nextSibling;
-            return node;
-        }
-
-        if (node.firstChild === context.selected) {
-            node.firstChild = node.firstChild.nextSibling;
-            return node;
-        }
-        deleteNode(node.firstChild);
-        deleteNode(node.nextSibling);
-    }
-
+    
     function handleOnClick() {
-        let parentNode = deleteNode(root);
+        let parentNode = deleteNode(root, context.selected);
         context.setSelected(parentNode);
-        // to re-render all the folders
+
         context.setFolders([root]);
         setModalState({ ...modalState, show: false });
     }

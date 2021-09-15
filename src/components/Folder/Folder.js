@@ -49,7 +49,7 @@ export const Folder = ({ folder }) => {
                     {open ?
                         <Child>
                             {children.map((el) => {
-                                return <Folder folder={el} key={el.id} />
+                                return <Folder folder={el} key={el.id + el.name} />
                             })}
                         </Child>
                         : null}
