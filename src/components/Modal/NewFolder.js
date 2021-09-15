@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import ReactContext from '../../context';
 import { root } from '../../apis';
-import { Close as CloseSvg } from '../../assests';
+import { Add_Folder, Close as CloseSvg } from '../../assests';
 
 import { useForm } from 'react-hook-form';
-import { Body, Button, Content, Footer, Header, Input, Label, Pane, Select, Title, Close, Option } from './ModalStyles';
+import {
+    Body, Button, Content, Footer, Header, Input,
+    Label, Pane, Title, Close, Icon, CancelButton
+} from './ModalStyles';
 import { Error } from './NewFile';
 
 const NewFolder = ({ modalState, setModalState }) => {
@@ -34,8 +37,11 @@ const NewFolder = ({ modalState, setModalState }) => {
         <Content>
             <form onSubmit={handleSubmit(handleOnClick)}>
                 <Header>
+                    <Icon src={Add_Folder} />
                     <Title>New Folder</Title>
-                    <Close src={CloseSvg} onClick={() => setModalState({ ...modalState, show: false, })} />
+                    <Close onClick={() => setModalState({ ...modalState, show: false })}>
+                        <Icon src={CloseSvg} />
+                    </Close>
                 </Header>
                 <Body>
                     <Pane>
@@ -54,7 +60,8 @@ const NewFolder = ({ modalState, setModalState }) => {
                     {errors.folderName?.type === 'validate' && <Error text={"Folder Name already exists."} />}
                 </Body>
                 <Footer>
-                    <Button type="submit">Create</Button>
+                    <CancelButton onClick={() => setModalState({ ...modalState, show: false })}><p>Cancel</p></CancelButton>
+                    <Button type="submit"><p>Create</p></Button>
                 </Footer>
             </form>
         </Content>

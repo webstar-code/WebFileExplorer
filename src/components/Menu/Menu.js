@@ -39,7 +39,7 @@ export const Menu = () => {
                 <Icon src={Add_File} onClick={() => context.selected.type != 'file' ? setModalState({show: true, type: "file"}) : null} ></Icon>
                 <Icon src={Add_Folder} onClick={() => context.selected.type != 'file' ? setModalState({show: true, type: "folder"}) : null} ></Icon>
                 <Icon src={Trash} onClick={() => setModalState({show: true, type: "delete"})}></Icon>
-                <Icon src={Edit_File}></Icon>
+                <Icon src={Edit_File} onClick={() => setModalState({show: true, type: 'rename'})}></Icon>
             </IconContainer>
         </Container>
     )

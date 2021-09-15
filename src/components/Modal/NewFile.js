@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import ReactContext from '../../context';
 import { root } from '../../apis';
-import { Close as CloseSvg } from '../../assests';
-import { Body, Button, Content, Footer, Header, Input, Label, Pane, Select, Title, Close, Option, ErrorText } from './ModalStyles';
+import { Add_File, Close as CloseSvg } from '../../assests';
+import {
+    Body, Button, Content, Footer, Header, Input, Label,
+    Pane, Select, Title, Close, Option, ErrorText, Icon, CancelButton
+} from './ModalStyles';
 import { useForm } from 'react-hook-form';
 import { check_if_exists } from '../../utils.js';
 
@@ -25,8 +28,11 @@ const NewFile = ({ modalState, setModalState }) => {
         <Content>
             <form onSubmit={handleSubmit(handleOnClick)}>
                 <Header>
+                    <Icon src={Add_File} />
                     <Title>New File</Title>
-                    <Close src={CloseSvg} onClick={() => setModalState({ ...modalState, show: false })} />
+                    <Close onClick={() => setModalState({ ...modalState, show: false })}>
+                        <Icon src={CloseSvg} />
+                    </Close>
                 </Header>
                 <Body>
                     <Pane>
@@ -42,7 +48,7 @@ const NewFile = ({ modalState, setModalState }) => {
                     {errors.fileName?.type === 'required' && <Error text={"File name is required."} />}
                     {errors.fileName?.type === 'pattern' && <Error text={"Not valid. Please choose a different name."} />}
                     {errors.fileName?.type === 'validate' && <Error text={"File Name already exists."} />}
-            
+
                     <Pane>
                         <Label>Save as</Label>
                         <Select name="Extension" id="extension" {...register("fileExtension")}>
@@ -54,10 +60,11 @@ const NewFile = ({ modalState, setModalState }) => {
                     </Pane>
                 </Body>
                 <Footer>
-                    <Button type="submit">Create</Button>
+                    <CancelButton onClick={() => setModalState({ ...modalState, show: false })}><p>Cancel</p></CancelButton>
+                    <Button type="submit"><p>Create</p></Button>
                 </Footer>
             </form>
-        </Content>
+        </Content >
     )
 }
 

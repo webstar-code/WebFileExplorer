@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import ReactContext from '../../context';
-import { Body, Content, Header, Button, Label, Title, Footer, Close } from './ModalStyles';
-import { Close as CloseSvg } from '../../assests';
+import { Body, Content, Header, Button, Label, Title, Footer, Close, Icon, CancelButton } from './ModalStyles';
+import { Close as CloseSvg, Trash } from '../../assests';
 import { root } from '../../apis';
 import { deleteNode } from '../../utils.js'
 const Delete = ({ modalState, setModalState }) => {
     const context = useContext(ReactContext);
-    
+
     function handleOnClick() {
         let parentNode = deleteNode(root, context.selected);
         context.setSelected(parentNode);
@@ -18,15 +18,18 @@ const Delete = ({ modalState, setModalState }) => {
     return (
         <Content>
             <Header>
+                <Icon src={Trash} />
                 <Title>Delete {context.selected.name}.{context.selected.extension}</Title>
-                <Close src={CloseSvg} onClick={() => setModalState({ ...modalState, show: false })} />
+                <Close onClick={() => setModalState({ ...modalState, show: false })}>
+                    <Icon src={CloseSvg} />
+                </Close>
             </Header>
             <Body>
                 <Label>Are you sure you want to Delete {context.selected.name}.{context.selected.extension}</Label>
             </Body>
             <Footer>
-                <Button onClick={() => setModalState({ ...modalState, show: false })}>Cancel</Button>
-                <Button onClick={() => handleOnClick()}>Delete</Button>
+                <CancelButton onClick={() => setModalState({ ...modalState, show: false })}><p>Cancel</p></CancelButton>
+                <Button onClick={() => handleOnClick()}><p>Delete</p></Button>
 
             </Footer>
         </Content>

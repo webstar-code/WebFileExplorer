@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { Body, Button, Content, Footer, Header, Input, Label, Pane, Close, Title } from './ModalStyles';
+import { Body, Button, Content, Footer, Header, Input, Label, Pane, Close, Title, Icon, CancelButton } from './ModalStyles';
 import { useForm } from 'react-hook-form';
-import { Close as CloseSvg } from '../../assests';
+import { Close as CloseSvg, Edit_File } from '../../assests';
 import { check_if_exists } from '../../utils.js';
 import ReactContext from '../../context';
 import { root } from '../../apis';
@@ -22,8 +22,11 @@ const Rename = ({ modalState, setModalState }) => {
         <Content>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Header>
+                    <Icon src={Edit_File} />
                     <Title>Rename file</Title>
-                    <Close src={CloseSvg} onClick={() => setModalState({ ...modalState, show: false })} />
+                    <Close onClick={() => setModalState({ ...modalState, show: false })}>
+                        <Icon src={CloseSvg} />
+                    </Close>
                 </Header>
                 <Body>
                     <Pane>
@@ -41,12 +44,13 @@ const Rename = ({ modalState, setModalState }) => {
                     {errors.fileName?.type === 'required' && <Error text={"File name is required."} />}
                     {errors.fileName?.type === 'pattern' && <Error text={"Not valid. Please choose a different name."} />}
                     {errors.fileName?.type === 'validate' && <Error text={"File Name already exists."} />}
-            
+
                 </Body>
 
                 <Footer>
-                    <Button onClick={() => setModalState({ ...modalState, show: false })}>Cancel</Button>
-                    <Button type="submit">Create</Button>
+                    <CancelButton onClick={() => setModalState({ ...modalState, show: false })}><p>Cancel</p></CancelButton>
+                    <Button type="submit"><p>Rename</p></Button>
+
                 </Footer>
             </form>
         </Content>
