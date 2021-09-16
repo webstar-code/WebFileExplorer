@@ -26,7 +26,11 @@ export const Container = styled.div`
   width: 80%;
   padding: 20px;
   margin: auto;
-
+  
+  @media ${device.tablet} {
+    width: 100%;
+    padding: 0px;
+  }
   @media ${device.mobileL} {
     width: 100%;
     padding: 0px;
