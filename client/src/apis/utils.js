@@ -88,26 +88,3 @@ export function SearchNode(root, value) {
 //     }
 // }
 
-
-export function find_from_data(id) {
-    for(let i = 0; i < data.length; i++) {
-        if (data[i].id == id) {
-            return data[i];
-        }
-    }
-}
-
-
-export function Construct(root) {
-    if (root === null) return;
-
-    if (root.children) {
-        console.log(root);
-        for(let i = 0; i < root.children.length; i++) {
-            root.insert(find_from_data(root.children[i].id));
-        }
-    }
-    Construct(root.firstChild);
-    Construct(root.nextSibling);
-
-}

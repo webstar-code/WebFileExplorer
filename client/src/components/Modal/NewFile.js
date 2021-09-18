@@ -8,6 +8,7 @@ import {
 } from './ModalStyles';
 import { useForm } from 'react-hook-form';
 import { check_if_exists } from '../../utils.js';
+import { insertDB } from '../../apis/DB_apis';
 
 
 const NewFile = ({ modalState, setModalState }) => {
@@ -15,7 +16,8 @@ const NewFile = ({ modalState, setModalState }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     function addNewNode(data) {
-        context.selected.insert(data);
+        const newNode = context.selected.insert(data);
+        insertDB(newNode);
         context.setFolders([root]);
     }
 
