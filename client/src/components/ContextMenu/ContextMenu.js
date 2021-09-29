@@ -2,17 +2,16 @@ import React, {useState, useCallback, useEffect, useContext} from 'react';
 import { Cut } from '../../utils.js';
 import { Container, List, ListItem } from './ContextmenuStyles';
 import ReactContext from '../../context';
-import { root } from '../../apis';
 
 const ContextMenu = ({setModalState}) => {
     const context = useContext(ReactContext)
     const [show, setShow] = useState(false);
     const [pos, setPos] = useState({x: 0, y: 0});
     const [pasteItem, setPasteItem] = useState();
-
+    let root = context.root;
     const handleClick = useCallback(() => {
         setShow(false);
-    }, [show]);
+    }, []);
 
     const handleContextMenu = useCallback((e) => {   
         e.preventDefault();
@@ -21,7 +20,7 @@ const ContextMenu = ({setModalState}) => {
             {x: e.pageX,
              y: e.pageY}
         )
-    }, [setPos, setShow]);
+    }, []);
 
 
     const handleCut = () => {

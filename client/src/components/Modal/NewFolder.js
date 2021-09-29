@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import ReactContext from '../../context';
-import { root } from '../../apis';
 import { Add_Folder, Close as CloseSvg } from '../../assests';
 
 import { useForm } from 'react-hook-form';
@@ -13,10 +12,10 @@ import { Error } from './NewFile';
 const NewFolder = ({ modalState, setModalState }) => {
     const context = useContext(ReactContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
-
+    let root = context.root;
     // Check if File name already exists
     function check_if_exists(root, value) {
-        if (root.name == value) return true;
+        if (root.name === value) return true;
         if (root.nextSibling) {
             return check_if_exists(root.nextSibling, value);
         }

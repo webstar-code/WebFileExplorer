@@ -2,18 +2,18 @@ import React, { useContext } from 'react';
 import ReactContext from '../../context';
 import { Body, Content, Header, Button, Label, Title, Footer, Close, Icon, CancelButton } from './ModalStyles';
 import { Close as CloseSvg, Trash } from '../../assests';
-import { root } from '../../apis';
 import { deleteNode } from '../../utils.js'
-import { deleteDB } from '../../apis/DB_apis';
+// import { deleteDB } from '../../apis/DB_apis';
+
 const Delete = ({ modalState, setModalState }) => {
     const context = useContext(ReactContext);
-
+    let root = context.root;
     function handleOnClick() {
         let parentNode = deleteNode(root, context.selected);
         context.setSelected(parentNode);
         context.setFolders([root]);
         setModalState({ ...modalState, show: false });
-        deleteDB(context.selected.id);
+        // deleteDB(context.selected.id);
     
 }
 

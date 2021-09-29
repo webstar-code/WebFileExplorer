@@ -1,19 +1,39 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Header, Folders } from './container'
 import styled from 'styled-components';
-import { root } from './apis'
 import ReactContext from './context';
 import { device } from './Breakpoints';
-
+// import { Construct, find_from_data, Node } from './apis';
+import { rootNode } from './apis'
 
 function App() {
+  const [root, setRoot] = useState(rootNode);
   const [folders, setFolders] = useState([root]);
   const [selected, setSelected] = useState(root);
+
+  // useEffect(() => {
+  //   find_from_data(1).then((data) => {
+  //     console.log(data);
+  //     let r = new Node(data[0]);
+  //     console.log(r);
+  //     let x = Construct(r);
+  //     console.log(x);
+  //     setRoot(x);
+  //   })
+  // }, []);
+
+  useEffect(() => {
+      setFolders([root]);
+  }, [root]);
+ 
   return (
     <Container>
-      <ReactContext.Provider value={{folders, setFolders, selected, setSelected}}>
+      <ReactContext.Provider value={{ root, setRoot, folders, setFolders, selected, setSelected }}>
         <Header />
-        <Folders />
+        {root ?
+          <Folders />
+          : <h1>Loading...</h1>
+        }
       </ReactContext.Provider>
     </Container>
   );

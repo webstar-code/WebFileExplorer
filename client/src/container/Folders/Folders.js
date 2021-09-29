@@ -6,7 +6,6 @@ import { Container } from './FoldersStyles';
 
 export const Folders = () => {
     const context = useContext(ReactContext);
-
     return (
         <Container>
             {context.folders ? 

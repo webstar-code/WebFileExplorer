@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { root } from '../../apis';
-import { Down_Arrow, Opened_Folder, Right_Arrow, Folder as FolderSvg, File } from '../../assests/index'
+import {Opened_Folder, Folder as FolderSvg, File } from '../../assests/index'
 import ReactContext from '../../context';
-import ContextMenu from '../ContextMenu/ContextMenu';
 import { Container, Icon, Text, Child, Pane } from './FolderStyles';
 
 
@@ -32,7 +30,7 @@ export const Folder = ({ folder }) => {
 
     return (
         <Container>
-            {folder.type == 'file' ?
+            {folder.type === 'file' ?
                 <Pane onClick={() => changeSelected()}bgcolor={context.selected.id === folder.id ? 'rgba(36, 114, 145, 0.4)' : 'none'}>
                     <Icon src={File}  />
                     <Text>{folder.name}</Text>

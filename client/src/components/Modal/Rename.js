@@ -4,18 +4,17 @@ import { useForm } from 'react-hook-form';
 import { Close as CloseSvg, Edit_File } from '../../assests';
 import { check_if_exists } from '../../utils.js';
 import ReactContext from '../../context';
-import { root } from '../../apis';
 import { Error } from './NewFile';
-import { renameDB } from '../../apis/DB_apis';
+// import { renameDB } from '../../apis/DB_apis';
 
 const Rename = ({ modalState, setModalState }) => {
     const context = useContext(ReactContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
-
+    let root = context.root;
     const onSubmit = (data) => {
         let node = context.selected.rename(data.fileName);
 
-        renameDB(node);
+        // renameDB(node);
         context.setFolders([root]);
         setModalState({ ...modalState, show: false });
     }

@@ -3,7 +3,6 @@ import { Container, Input, Icon, IconContainer} from './MenuStyles';
 import {Add_File, Add_Folder, Trash, Edit_File} from '../../assests'
 import { Modal, Search } from '../index';
 import ReactContext from '../../context';
-import {root} from '../../apis';
 import ContextMenu from '../ContextMenu/ContextMenu';
 
 export const Menu = () => {
@@ -13,6 +12,7 @@ export const Menu = () => {
         show: false,
         title: ''
     })
+    let root = context.root;
 
     useEffect(() => {
         let items = [];
@@ -36,8 +36,8 @@ export const Menu = () => {
             <Input type="text" placeholder="/root" width='50%' disabled={true} value={currentPath} ></Input>
             <Search />
             <IconContainer>
-                <Icon src={Add_File} onClick={() => context.selected.type != 'file' ? setModalState({show: true, type: "file"}) : null} ></Icon>
-                <Icon src={Add_Folder} onClick={() => context.selected.type != 'file' ? setModalState({show: true, type: "folder"}) : null} ></Icon>
+                <Icon src={Add_File} onClick={() => context.selected.type !== 'file' ? setModalState({show: true, type: "file"}) : null} ></Icon>
+                <Icon src={Add_Folder} onClick={() => context.selected.type !== 'file' ? setModalState({show: true, type: "folder"}) : null} ></Icon>
                 <Icon src={Trash} onClick={() => setModalState({show: true, type: "delete"})}></Icon>
                 <Icon src={Edit_File} onClick={() => setModalState({show: true, type: 'rename'})}></Icon>
             </IconContainer>

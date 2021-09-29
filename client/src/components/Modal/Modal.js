@@ -14,13 +14,13 @@ export const Modal = ({modalState, setModalState}) => {
 
     return (
         <Container>
-            {modalState.type == 'file' ? 
+            {modalState.type === 'file' ? 
             <NewFile modalState={modalState} setModalState={setModalState} />
-            : modalState.type == 'folder' ?
+            : modalState.type === 'folder' ?
             <NewFolder modalState={modalState} setModalState={setModalState} /> 
-            : modalState.type == 'delete' ? 
+            : modalState.type === 'delete' ? 
             <Delete modalState={modalState} setModalState={setModalState} />
-            : modalState.type == 'rename' ? 
+            : modalState.type === 'rename' ? 
             <Rename modalState={modalState} setModalState={setModalState} />
             : null}
         

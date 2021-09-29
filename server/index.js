@@ -36,7 +36,9 @@ app.post('/insert', (req, res) => {
 
     db.query(insertDB_sql, data, (err, result) => {
         if (err) throw err;
-        console.log("data added");
+        console.log(result);
+        console.log("node added");
+
     })
 })
 
@@ -49,6 +51,16 @@ app.post('/update', (req, res) => {
         if (err) throw err;
         console.log(result);
         console.log("rename succesful");
+    })
+})
+
+app.post('/updateNode', (req, res) => {
+    let data = req.body;
+
+    db.query('UPDATE nodes SET ? WHERE id = ?', [data, data.id], (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        console.log("upadteNOde scuccess");
     })
 })
 

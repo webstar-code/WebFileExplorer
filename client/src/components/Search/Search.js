@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { root } from '../../apis'
 import { device } from '../../Breakpoints';
 import ReactContext from '../../context';
 
@@ -29,6 +28,7 @@ export const Input = styled.input`
 
 export const Search = () => {
     const context = useContext(ReactContext);
+    let root = context.root;
     let items = [];
 
     function SearchNode(root, value) {

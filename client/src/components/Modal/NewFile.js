@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import ReactContext from '../../context';
-import { root } from '../../apis';
 import { Add_File, Close as CloseSvg } from '../../assests';
 import {
     Body, Button, Content, Footer, Header, Input, Label,
@@ -8,7 +7,7 @@ import {
 } from './ModalStyles';
 import { useForm } from 'react-hook-form';
 import { check_if_exists } from '../../utils.js';
-import { insertDB } from '../../apis/DB_apis';
+// import { insertDB, updateNodeChildren } from '../../apis/DB_apis';
 
 
 const NewFile = ({ modalState, setModalState }) => {
@@ -17,8 +16,9 @@ const NewFile = ({ modalState, setModalState }) => {
 
     function addNewNode(data) {
         const newNode = context.selected.insert(data);
-        insertDB(newNode);
-        context.setFolders([root]);
+        // insertDB(newNode);
+        // updateNodeChildren(context.selected);
+        context.setFolders([context.root]);
     }
 
     function handleOnClick(data) {
