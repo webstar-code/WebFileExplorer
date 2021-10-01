@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.js": "/WebFileExplorer/static/js/main.5800e7a6.chunk.js",
+    "main.js.map": "/WebFileExplorer/static/js/main.5800e7a6.chunk.js.map",
+    "runtime-main.js": "/WebFileExplorer/static/js/runtime-main.85c4ee66.js",
+    "runtime-main.js.map": "/WebFileExplorer/static/js/runtime-main.85c4ee66.js.map",
+    "static/js/2.d773e68b.chunk.js": "/WebFileExplorer/static/js/2.d773e68b.chunk.js",
+    "static/js/2.d773e68b.chunk.js.map": "/WebFileExplorer/static/js/2.d773e68b.chunk.js.map",
+    "static/js/3.fc3933a0.chunk.js": "/WebFileExplorer/static/js/3.fc3933a0.chunk.js",
+    "static/js/3.fc3933a0.chunk.js.map": "/WebFileExplorer/static/js/3.fc3933a0.chunk.js.map",
+    "index.html": "/WebFileExplorer/index.html",
+    "static/js/2.d773e68b.chunk.js.LICENSE.txt": "/WebFileExplorer/static/js/2.d773e68b.chunk.js.LICENSE.txt",
+    "static/media/Close.a9c2447d.svg": "/WebFileExplorer/static/media/Close.a9c2447d.svg",
+    "static/media/Down_Arrow.6e8b2bd3.svg": "/WebFileExplorer/static/media/Down_Arrow.6e8b2bd3.svg",
+    "static/media/File.97abe01d.svg": "/WebFileExplorer/static/media/File.97abe01d.svg",
+    "static/media/Folder.8f048005.svg": "/WebFileExplorer/static/media/Folder.8f048005.svg",
+    "static/media/Opened_Folder.71171276.svg": "/WebFileExplorer/static/media/Opened_Folder.71171276.svg",
+    "static/media/Right_Arrow.bb707805.svg": "/WebFileExplorer/static/media/Right_Arrow.bb707805.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.85c4ee66.js",
+    "static/js/2.d773e68b.chunk.js",
+    "static/js/main.5800e7a6.chunk.js"
+  ]
+}
